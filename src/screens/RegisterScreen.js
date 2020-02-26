@@ -1,20 +1,46 @@
 import React, { useState } from 'react';
 import {View,TextInput,StyleSheet,TouchableOpacity,Text} from 'react-native';
-// import firebase from 'react-native-firebase';
+ import firebase from 'react-native-firebase';
+
+
 const RegisterScreen =()=>{
-    const [userName,setUserName]=useState('tayyaba.sikander2000@gmail.com');
+    // const [userName,setUserName]=useState('tayyaba.sikander2000@gmail.com');
     const [email,setEmail]=useState('tayyaba.sikander2000@gmail.com');
-    const [companyName,setCompanyName] = useState('')
-    const [password,setPassword]=useState('');
-    const [confirmPassword,setconfirmPassword]=useState('');
-    
+    // const [companyName,setCompanyName] = useState('')
+    const [password,setPassword]=useState('123456');
+    // const [confirmPassword,setConfirmPassword]=useState('');
+    const [errorMessage,setErrorMessage]=useState('')
+
+     handleSignUp = () => {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(email,password)
+         .then((user) => console.log("user is",user))
+         .catch(error => {
+             console.log(error.message)
+            // setErrorMessage(error.message)
+        }
+            )
+      }
     return(
         <View>
              <View style={{marginTop:90}}>
-        <View style={styles.backgroundStyle}>
+
+        {/* <View style={styles.backgroundStyle}>
          <TextInput
             autoCapitalize="none"
             placeholder="Enter User Name"
+            autoCorrect={false}
+            value={email}
+            onChangeText={(x) => setUserName(x)}
+            style={styles.input}>
+        </TextInput>
+        </View> */}
+
+        <View style={styles.backgroundStyle}>
+         <TextInput
+            autoCapitalize="none"
+            placeholder="Enter Email"
             autoCorrect={false}
             value={email}
             onChangeText={(x) => setEmail(x)}
@@ -22,18 +48,7 @@ const RegisterScreen =()=>{
         </TextInput>
         </View>
 
-        <View style={styles.backgroundStyle}>
-         <TextInput
-            autoCapitalize="none"
-            placeholder="Enter Email"
-            autoCorrect={false}
-            value={password}
-            onChangeText={(x) => setPassword(x)}
-            style={styles.input}>
-        </TextInput>
-        </View>
-
-        <View style={styles.backgroundStyle}>
+        {/* <View style={styles.backgroundStyle}>
          <TextInput
             autoCapitalize="none"
             placeholder="Enter your Company Name"
@@ -42,7 +57,7 @@ const RegisterScreen =()=>{
             onChangeText={(x) => setPassword(x)}
             style={styles.input}>
         </TextInput>
-        </View>
+        </View>  */}
 
         <View style={styles.backgroundStyle}>
          <TextInput
@@ -55,21 +70,21 @@ const RegisterScreen =()=>{
         </TextInput>
         </View>
 
-        <View style={styles.backgroundStyle}>
+        {/* <View style={styles.backgroundStyle}>
          <TextInput
             autoCapitalize="none"
             placeholder="Confirm password"
             autoCorrect={false}
             value={password}
-            onChangeText={(x) => setPassword(x)}
+            onChangeText={(x) => setConfirmPassword(x)}
             style={styles.input}>
         </TextInput>
-        </View>
+        </View> */}
 
       
                 <TouchableOpacity style={styles.buttonStyle}
                         onPress={() => {
-                          
+                            handleSignUp()
                         }}
                         >
                         <Text style={styles.buttonTextStyle}>Register</Text>

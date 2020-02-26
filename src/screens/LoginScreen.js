@@ -3,18 +3,13 @@ import {View,TextInput,StyleSheet,TouchableOpacity,Text} from 'react-native';
 import firebase from 'react-native-firebase';
 
 
-// const [errorMessage,setErrorMessage]=useState('')
-const LoginScreen = () =>{
+
+const LoginScreen = ({navigation}) =>{
     const [email,setEmail]=useState('tayyaba.sikander2000@gmail.com');
     const [password,setPassword]=useState('123456');
+    // const [errorMessage,setErrorMessage]=useState('')
 
-    // handleSignUp = () => {
-    //     firebase
-    //       .auth()
-    //       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-    //      .then((user) => console.log(user)
-    //       .catch(error => this.setState({ errorMessage: error.message }))
-    //   }
+   
     
     
       handleLogin = () => {
@@ -22,7 +17,11 @@ const LoginScreen = () =>{
         firebase
           .auth()
           .signInWithEmailAndPassword(email, password)
-          .then((user) => console.log("user is"+user))
+          .then((user) =>{
+           console.log("user is",user)
+           navigation.navigate('Home')
+          }
+           )
           .catch(error => setErrorMessage(error.message))
       }
 
