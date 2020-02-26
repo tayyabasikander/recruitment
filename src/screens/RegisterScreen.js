@@ -5,17 +5,40 @@ import {View,TextInput,StyleSheet,TouchableOpacity,Text} from 'react-native';
 
 const RegisterScreen =()=>{
     // const [userName,setUserName]=useState('tayyaba.sikander2000@gmail.com');
-    const [email,setEmail]=useState('tayyaba.sikander2000@gmail.com');
+    const [email,setEmail]=useState('tayyaaabbba.sikander2000@gmail.com');
     // const [companyName,setCompanyName] = useState('')
     const [password,setPassword]=useState('123456');
     // const [confirmPassword,setConfirmPassword]=useState('');
     const [errorMessage,setErrorMessage]=useState('')
 
+    const [studentName,setStudentName]=useState('');
+    const [fatherName,setFatherName]=useState('');
+    const[studentId,setStudentId]=useState('')
+
+    const push=()=>{
+        firebase.database().ref('UsersList/').push({
+            email,
+            studentName,
+         studentId,
+         fatherName
+        }).then((data)=>{
+            //success callback
+            console.log('data ' , data)
+        }).catch((error)=>{
+            //error callback
+            console.log('error ' , error)
+        })
+    }
+
   const  handleSignUp = () => {
         firebase
           .auth()
           .createUserWithEmailAndPassword(email,password)
-         .then((user) => console.log("user is",user))
+         .then((user) =>{
+            push()
+         console.log("user is",user)
+        })
+
          .catch(error => {
              console.log(error.message)
             setErrorMessage(error.message)
@@ -64,22 +87,45 @@ const RegisterScreen =()=>{
             autoCapitalize="none"
             placeholder="Enter password"
             autoCorrect={false}
+            secureTextEntry={true}
             value={password}
             onChangeText={(x) => setPassword(x)}
             style={styles.input}>
         </TextInput>
         </View>
 
-        {/* <View style={styles.backgroundStyle}>
+        <View style={styles.backgroundStyle}>
          <TextInput
             autoCapitalize="none"
-            placeholder="Confirm password"
+            placeholder="Enter Student Name"
             autoCorrect={false}
-            value={password}
-            onChangeText={(x) => setConfirmPassword(x)}
+            value={studentName}
+            onChangeText={(x) => setStudentName(x)}
             style={styles.input}>
         </TextInput>
-        </View> */}
+        </View>
+
+        <View style={styles.backgroundStyle}>
+         <TextInput
+            autoCapitalize="none"
+            placeholder="Enter Father Name "
+            autoCorrect={false}
+            value={fatherName}
+            onChangeText={(x) => setFatherName(x)}
+            style={styles.input}>
+        </TextInput>
+        </View>
+
+        <View style={styles.backgroundStyle}>
+         <TextInput
+            autoCapitalize="none"
+            placeholder="Enter Student Id "
+            autoCorrect={false}
+            value={studentId}
+            onChangeText={(x) => setStudentId(x)}
+            style={styles.input}>
+        </TextInput>
+        </View>
 
       
                 <TouchableOpacity style={styles.buttonStyle}

@@ -8,9 +8,11 @@ import HomeScreen from './src/screens/HomeScreen';
 console.disableYellowBox = true;
 
 const AuthStack = createStackNavigator({
+ 
+  Register:RegisterScreen, 
   Login: LoginScreen,
   Home:HomeScreen,
-  Register:RegisterScreen, 
+
   
 
 

@@ -13,7 +13,7 @@ const LoginScreen = ({navigation}) =>{
     
     
      const handleLogin = () => {
-        console.log('fefef')
+      
         firebase
           .auth()
           .signInWithEmailAndPassword(email, password)
