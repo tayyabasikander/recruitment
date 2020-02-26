@@ -11,14 +11,14 @@ const RegisterScreen =()=>{
     // const [confirmPassword,setConfirmPassword]=useState('');
     const [errorMessage,setErrorMessage]=useState('')
 
-     handleSignUp = () => {
+  const  handleSignUp = () => {
         firebase
           .auth()
           .createUserWithEmailAndPassword(email,password)
          .then((user) => console.log("user is",user))
          .catch(error => {
              console.log(error.message)
-            // setErrorMessage(error.message)
+            setErrorMessage(error.message)
         }
             )
       }

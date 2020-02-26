@@ -9,8 +9,9 @@ console.disableYellowBox = true;
 
 const AuthStack = createStackNavigator({
   Login: LoginScreen,
+  Home:HomeScreen,
   Register:RegisterScreen, 
-  Home:HomeScreen
+  
 
 
  
