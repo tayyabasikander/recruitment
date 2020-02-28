@@ -5,12 +5,33 @@ import firebase from 'react-native-firebase';
 
 
 const LoginScreen = ({navigation}) =>{
-    const [email,setEmail]=useState('tayyaba.sikander2000@gmail.com');
+    const [email,setEmail]=useState('t.s7@gmail.com');
     const [password,setPassword]=useState('123456');
-    // const [errorMessage,setErrorMessage]=useState('')
-
-   
+    const [errorMessage,setErrorMessage]=useState('')
     
+
+    const select = (snapshot) =>{
+        if(snapshot.val().role=="1"){
+            navigation.navigate('Admin')
+        }else if(snapshot.val().role=="2"){
+            navigation.navigate('Employee')
+        }else if(snapshot.val().role=="2"){
+            navigation.navigate('Student')
+        }else{
+            alert("some error")
+        }
+    }
+
+    const getUserData = (userId)=>{
+
+            firebase.database().ref(`users/${userId}/`).on('value',(snapshot)=>{
+                // console.log(snapshot.val())
+
+                console.log("snapshot",snapshot.val());
+                select(snapshot)
+            })
+       
+    }
     
      const handleLogin = () => {
       
@@ -19,7 +40,9 @@ const LoginScreen = ({navigation}) =>{
           .signInWithEmailAndPassword(email, password)
           .then((user) =>{
            console.log("user is",user)
-           navigation.navigate('Home')
+           
+           getUserData(user.user.uid)
+        //    navigation.navigate('Home')
           }
            )
           .catch(error => setErrorMessage(error.message))
@@ -79,21 +102,21 @@ const styles=StyleSheet.create({
         alignSelf:"center"
 
     },
-    buttonStyle: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '65%',
-        margin: 10,
-        borderRadius: 25,
-        height:30,
-        alignSelf:"center",
-        // backgroundColor: theme.color.primaryColor,
-        backgroundColor:'#274962'
-      },
-      buttonTextStyle: {
-        width: '100%',
-        textAlign: 'center',
-        color:'white'
-      },
+        buttonStyle: {
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '65%',
+            margin: 10,
+            borderRadius: 25,
+            height:30,
+            alignSelf:"center",
+            // backgroundColor: theme.color.primaryColor,
+            backgroundColor:'#274962'
+        },
+        buttonTextStyle: {
+            width: '100%',
+            textAlign: 'center',
+            color:'white'
+        },
 })
 export default LoginScreen;

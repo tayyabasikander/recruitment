@@ -33,7 +33,7 @@ const HomeScreen = ()=>{
 
       const get=()=>{
 
-        firebase.database().ref('users').on('value',(data)=>{
+        firebase.database().ref(`users/${firebase.auth().currentUser.uid}`).on('value',(data)=>{
             console.log(data.toJSON())
         })
       }  
